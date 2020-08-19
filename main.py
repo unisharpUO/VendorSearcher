@@ -10,7 +10,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
 
-Searches = asyncio.Queue()
+Searches = asyncio.Queue(maxsize=5)
 RunNextSearch = asyncio.Event()
 SearchLock = asyncio.Lock()
 
@@ -68,7 +68,7 @@ async def RunSearch(_message):
                 _alt += '```'
                 await _message.channel.send(_alt)
                 Wait(1500)
-        return
+    return
 
 
 @client.event
@@ -84,14 +84,17 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if message.content.lower().startswith('!vs') and message.author.id == 155821505685487627:  # me only right now
-        if not Connected():
+    if message.content.lower().startswith('!vs'):
+        if not Connected():  # check if connected to game client
             await message.channel.send(f"{message.author.mention} bot is not connected to UO at the moment...")
             return
         else:
-            _search = await RunSearch(message)
-            await Searches.put(_search)
-
+            if Searches.full():
+                await message.channel.send(f"{message.author.mention} queue of 5 is full, try again later...")
+            else:
+                _search = await RunSearch(message)
+                await Searches.put(_search)
+                await message.channel.send(f"{message.author.mention} your search has been queue'd....")
 
 client.loop.create_task(VendorSearchTask())
 
