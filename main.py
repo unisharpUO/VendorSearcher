@@ -1,3 +1,4 @@
+import asyncio
 import os
 import discord
 from discord import Embed, Colour
@@ -9,38 +10,35 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
 
+Searches = asyncio.Queue()
+RunNextSearch = asyncio.Event()
+SearchLock = asyncio.Lock()
 
-@client.event
-async def on_ready():
-    print(f'{client.user.name} has connected to Discord!')
+
+async def VendorSearchTask():
+    while True:
+        RunNextSearch.clear()
+        _current = await Searches.get()
+        _current.start()
+        await RunNextSearch.wait()
 
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.author.bot:
-        return
-
-    if message.content.lower().startswith('!vs') and message.author.id == 155821505685487627:  # me only right now
-        if not Connected():
-            await message.channel.send(f"{message.author.mention} bot is not connected to UO at the moment...")
-            return
-
-        await message.channel.send(f"{message.author.mention} searching...")
+async def RunSearch(_message):
+    async with SearchLock:
+        await _message.channel.send(f"{_message.author.mention} searching...")
         _vs = VendorSearch()
 
-        if not _vs.DiscordSearch(message.content.lower()[3:]):
-            await message.channel.send(f"{message.author.mention} search either timed out or no items found.")
+        if not _vs.DiscordSearch(_message.content.lower()[3:]):
+            await _message.channel.send(f"{_message.author.mention} search either timed out or no items found.")
             return
 
         if _vs.Results() == 0:
-            await message.channel.send(f"{message.author.mention} no results found")
+            await _message.channel.send(f"{_message.author.mention} no results found")
+            return
         else:
-            _response = f"{message.author.mention} Results Found: {len(_vs.Results())}" \
+            _response = f"{_message.author.mention} Results Found: {len(_vs.Results())}" \
                         f" currently only supports up to 5"
-            await message.channel.send(_response)
+            await _message.channel.send(_response)
             for _result in _vs.Results():
                 _color = 'ff7324'
                 if _result[0] == 'ring' or _result[0] == 'bracelet':
@@ -68,7 +66,33 @@ async def on_message(message):
                     _alt += f'{_name}: {_value}\n'
                 # await message.channel.send(embed=_embed)
                 _alt += '```'
-                await message.channel.send(_alt)
+                await _message.channel.send(_alt)
                 Wait(1500)
+        return
+
+
+@client.event
+async def on_ready():
+    print(f'{client.user.name} has connected to Discord!')
+
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.author.bot:
+        return
+
+    if message.content.lower().startswith('!vs') and message.author.id == 155821505685487627:  # me only right now
+        if not Connected():
+            await message.channel.send(f"{message.author.mention} bot is not connected to UO at the moment...")
+            return
+        else:
+            _search = await RunSearch(message)
+            await Searches.put(_search)
+
+
+client.loop.create_task(VendorSearchTask())
 
 client.run(TOKEN)
