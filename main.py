@@ -108,7 +108,6 @@ async def on_message(message):
             else:
                 _search = await RunSearch(message)
                 await Searches.put(_search)
-                await message.channel.send(f"{message.author.mention} your search has been queue'd....")
 
 client.loop.create_task(VendorSearchTask())
 
