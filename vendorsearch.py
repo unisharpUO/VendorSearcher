@@ -90,6 +90,24 @@ class VendorSearch:
                 self.LMC(_param[4:])
             elif _param.startswith("sort:"):
                 self.Sort(_param[5:])
+            elif _param.startswith("garg:"):
+                self.Garg(_param[5:])
+            elif _param.startswith("elf:"):
+                self.Elf(_param[4:])
+            elif _param.startswith("splinter:"):
+                self.Splintering(_param[9:])
+            elif _param.startswith("physdmg:"):
+                self.PhysicalDamage(_param[5:])
+            elif _param.startswith("fdmg:"):
+                self.FireDamage(_param[5:])
+            elif _param.startswith("cdmg:"):
+                self.ColdDamage(_param[5:])
+            elif _param.startswith("pdmg:"):
+                self.PoisonDamage(_param[5:])
+            elif _param.startswith("edmg:"):
+                self.EnergyDamage(_param[5:])
+            elif _param.startswith("cursed:"):
+                self.Cursed(_param[5:])
         return self.Search()
 
     def DamageIncrease(self, _value):
@@ -297,4 +315,53 @@ class VendorSearch:
         elif _value == "low":
             NumGumpButton(0, 236)
             Wait(250)
+
+    def Antique(self, _value):
+        if _value:
+            NumGumpButton(0, 114)
+            Wait(250)
+        else:
+            NumGumpButton(0, 115)
+            Wait(250)
+
+    def Brittle(self, _value):
+        if _value:
+            NumGumpButton(0, 112)
+            Wait(250)
+        else:
+            NumGumpButton(0, 113)
+            Wait(250)
+
+    def Cursed(self, _value):
+        if _value:
+            NumGumpButton(0, 108)
+            Wait(250)
+        else:
+            NumGumpButton(0, 109)
+            Wait(250)
+
+    def Garg(self, _value):
+        if _value:
+            NumGumpButton(0, 101)
+            Wait(250)
+        else:
+            NumGumpButton(0, 102)
+            Wait(250)
+
+    def Elf(self, _value):
+        if _value:
+            NumGumpButton(0, 103)
+            Wait(250)
+        else:
+            NumGumpButton(0, 104)
+            Wait(250)
+
+    def Splintering(self, _value):
+        NumGumpTextEntry(0, 43, str(_value))
+        Wait(250)
+        NumGumpButton(0, 126)
+        Wait(250)
+
+
+
 

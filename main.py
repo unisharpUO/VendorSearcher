@@ -84,6 +84,20 @@ async def on_message(message):
     if message.author.bot:
         return
 
+    if message.content.lower().startswith('!help'):
+        _response = f"```\n" \
+                    "HELP MENU\n" \
+                    f"usage: !vs param seperated by commas\n" \
+                    f"example: !vs dci:15, hci:15, ep:25, antique:true\n" \
+                    f"\n" \
+                    f"params: di, dci, hci, ssi\n" \
+                    f"params: sdi, cf, fcr, fc, lmc, lrc, mw\n" \
+                    f"params: garg, elf, cursed, brittle, antique\n" \
+                    f"params:ep, luck, rpd, selfrepair, rarity\n" \
+                    f"params: physdmg, fdmg, cdmg, pdmg, edmg\n" \
+                    f"params: splinter, sort (high/low)```"
+        await message.channel.send(_response)
+
     if message.content.lower().startswith('!vs'):
         if not Connected():  # check if connected to game client
             await message.channel.send(f"{message.author.mention} bot is not connected to UO at the moment...")
