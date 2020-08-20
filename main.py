@@ -10,7 +10,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
 
-Searches = asyncio.Queue(maxsize=5)
+Searches = asyncio.Queue()
 RunNextSearch = asyncio.Event()
 SearchLock = asyncio.Lock()
 
@@ -103,11 +103,8 @@ async def on_message(message):
             await message.channel.send(f"{message.author.mention} bot is not connected to UO at the moment...")
             return
         else:
-            if Searches.full():
-                await message.channel.send(f"{message.author.mention} queue of 5 is full, try again later...")
-            else:
-                _search = await RunSearch(message)
-                await Searches.put(_search)
+            _search = await RunSearch(message)
+            await Searches.put(_search)
 
 client.loop.create_task(VendorSearchTask())
 

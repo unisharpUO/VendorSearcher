@@ -31,7 +31,7 @@ class VendorSearch:
         Wait(250)
         _searching = True
         _success = False
-        _timeout = time.time() + 60*2  # 2 minutes from now
+        _timeout = time.time() + 60  # 1 minutes from now
         while _searching:
             for _i in range(0, GetGumpsCount()):
                 if GetGumpID(_i) == 999113:
@@ -80,6 +80,8 @@ class VendorSearch:
                 self.HCI(_param[4:])
             elif _param.startswith("dci:"):
                 self.DCI(_param[4:])
+            elif _param.startswith("sdi:"):
+                self.SDI(_param[4:])
             elif _param.startswith("fcr:"):
                 self.FCR(_param[4:])
             elif _param.startswith("fc:"):
@@ -108,6 +110,74 @@ class VendorSearch:
                 self.EnergyDamage(_param[5:])
             elif _param.startswith("cursed:"):
                 self.Cursed(_param[5:])
+            elif _param.startswith("manar:"):
+                self.ManaRegen(_param[6:])
+            elif _param.startswith("swords:"):
+                self.Swords(_param[7:])
+            elif _param.startswith("fencing:"):
+                self.Fencing(_param[8:])
+            elif _param.startswith("mace:"):
+                self.Mace(_param[5:])
+            elif _param.startswith("magery:"):
+                self.Magery(_param[7:])
+            elif _param.startswith("music:"):
+                self.Music(_param[6:])
+            elif _param.startswith("wrestling:"):
+                self.Wrestling(_param[10:])
+            elif _param.startswith("tactics:"):
+                self.Tactics(_param[8:])
+            elif _param.startswith("taming:"):
+                self.Taming(_param[7:])
+            elif _param.startswith("provo:"):
+                self.Provo(_param[6:])
+            elif _param.startswith("ss:"):
+                self.SpiritSpeak(_param[3:])
+            elif _param.startswith("stealth:"):
+                self.Stealth(_param[8:])
+            elif _param.startswith("parry:"):
+                self.Parry(_param[6:])
+            elif _param.startswith("med:"):
+                self.Meditation(_param[4:])
+            elif _param.startswith("lore:"):
+                self.AnimalLore(_param[5:])
+            elif _param.startswith("disco:"):
+                self.Discord(_param[6:])
+            elif _param.startswith("focus:"):
+                self.Focus(_param[6:])
+            elif _param.startswith("stealing:"):
+                self.Stealing(_param[9:])
+            elif _param.startswith("anatomy:"):
+                self.Anatomy(_param[8:])
+            elif _param.startswith("eval:"):
+                self.EvalInt(_param[5:])
+            elif _param.startswith("vet:"):
+                self.Vet(_param[4:])
+            elif _param.startswith("necro:"):
+                self.Necro(_param[6:])
+            elif _param.startswith("bush:"):
+                self.Bushido(_param[5:])
+            elif _param.startswith("myst:"):
+                self.Mystic(_param[5:])
+            elif _param.startswith("healing:"):
+                self.Healing(_param[8:])
+            elif _param.startswith("resist:"):
+                self.Resist(_param[7:])
+            elif _param.startswith("peace:"):
+                self.Peace(_param[6:])
+            elif _param.startswith("archery:"):
+                self.Archery(_param[8:])
+            elif _param.startswith("chiv:"):
+                self.Chiv(_param[5:])
+            elif _param.startswith("ninjitsu:"):
+                self.Ninjitsu(_param[9:])
+            elif _param.startswith("throwing:"):
+                self.Throwing(_param[9:])
+            elif _param.startswith("lj:"):
+                self.Lumberjacking(_param[3:])
+            elif _param.startswith("snoop:"):
+                self.Snooping(_param[6:])
+            elif _param.startswith("mining:"):
+                self.Mining(_param[7:])
         return self.Search()
 
     def DamageIncrease(self, _value):
@@ -359,8 +429,213 @@ class VendorSearch:
     def Splintering(self, _value):
         NumGumpTextEntry(0, 43, str(_value))
         Wait(250)
-        NumGumpButton(0, 126)
+        NumGumpButton(0, 203)
         Wait(250)
+
+    def Swords(self, _value):
+        NumGumpTextEntry(0, 78, str(_value))
+        Wait(250)
+        NumGumpButton(0, 203)
+        Wait(250)
+
+    def Fencing(self, _value):
+        NumGumpTextEntry(0, 79, str(_value))
+        Wait(250)
+        NumGumpButton(0, 204)
+        Wait(250)
+
+    def Mace(self, _value):
+        NumGumpTextEntry(0, 80, str(_value))
+        Wait(250)
+        NumGumpButton(0, 205)
+        Wait(250)
+
+    def Magery(self, _value):
+        NumGumpTextEntry(0, 81, str(_value))
+        Wait(250)
+        NumGumpButton(0, 206)
+        Wait(250)
+
+    def Music(self, _value):
+        NumGumpTextEntry(0, 82, str(_value))
+        Wait(250)
+        NumGumpButton(0, 207)
+        Wait(250)
+
+    def Wrestling(self, _value):
+        NumGumpTextEntry(0, 83, str(_value))
+        Wait(250)
+        NumGumpButton(0, 208)
+        Wait(250)
+
+    def Tactics(self, _value):
+        NumGumpTextEntry(0, 84, str(_value))
+        Wait(250)
+        NumGumpButton(0, 209)
+        Wait(250)
+
+    def Taming(self, _value):
+        NumGumpTextEntry(0, 85, str(_value))
+        Wait(250)
+        NumGumpButton(0, 210)
+        Wait(250)
+
+    def Provo(self, _value):
+        NumGumpTextEntry(0, 86, str(_value))
+        Wait(250)
+        NumGumpButton(0, 211)
+        Wait(250)
+
+    def SpiritSpeak(self, _value):
+        NumGumpTextEntry(0, 87, str(_value))
+        Wait(250)
+        NumGumpButton(0, 212)
+        Wait(250)
+
+    def Stealth(self, _value):
+        NumGumpTextEntry(0, 88, str(_value))
+        Wait(250)
+        NumGumpButton(0, 213)
+        Wait(250)
+
+    def Parry(self, _value):
+        NumGumpTextEntry(0, 89, str(_value))
+        Wait(250)
+        NumGumpButton(0, 214)
+        Wait(250)
+
+    def Meditation(self, _value):
+        NumGumpTextEntry(0, 90, str(_value))
+        Wait(250)
+        NumGumpButton(0, 215)
+        Wait(250)
+
+    def AnimalLore(self, _value):
+        NumGumpTextEntry(0, 91, str(_value))
+        Wait(250)
+        NumGumpButton(0, 216)
+        Wait(250)
+
+    def Discord(self, _value):
+        NumGumpTextEntry(0, 92, str(_value))
+        Wait(250)
+        NumGumpButton(0, 217)
+        Wait(250)
+
+    def Focus(self, _value):
+        NumGumpTextEntry(0, 93, str(_value))
+        Wait(250)
+        NumGumpButton(0, 218)
+        Wait(250)
+
+    def Stealing(self, _value):
+        NumGumpTextEntry(0, 94, str(_value))
+        Wait(250)
+        NumGumpButton(0, 219)
+        Wait(250)
+
+    def Anatomy(self, _value):
+        NumGumpTextEntry(0, 95, str(_value))
+        Wait(250)
+        NumGumpButton(0, 220)
+        Wait(250)
+
+    def EvalInt(self, _value):
+        NumGumpTextEntry(0, 96, str(_value))
+        Wait(250)
+        NumGumpButton(0, 221)
+        Wait(250)
+
+    def Vet(self, _value):
+        NumGumpTextEntry(0, 97, str(_value))
+        Wait(250)
+        NumGumpButton(0, 222)
+        Wait(250)
+
+    def Necro(self, _value):
+        NumGumpTextEntry(0, 98, str(_value))
+        Wait(250)
+        NumGumpButton(0, 223)
+        Wait(250)
+
+    def Bushido(self, _value):
+        NumGumpTextEntry(0, 99, str(_value))
+        Wait(250)
+        NumGumpButton(0, 224)
+        Wait(250)
+
+    def Mystic(self, _value):
+        NumGumpTextEntry(0, 100, str(_value))
+        Wait(250)
+        NumGumpButton(0, 225)
+        Wait(250)
+
+    def Healing(self, _value):
+        NumGumpTextEntry(0, 101, str(_value))
+        Wait(250)
+        NumGumpButton(0, 226)
+        Wait(250)
+
+    def Resist(self, _value):
+        NumGumpTextEntry(0, 102, str(_value))
+        Wait(250)
+        NumGumpButton(0, 227)
+        Wait(250)
+
+    def Peace(self, _value):
+        NumGumpTextEntry(0, 103, str(_value))
+        Wait(250)
+        NumGumpButton(0, 228)
+        Wait(250)
+
+    def Archery(self, _value):
+        NumGumpTextEntry(0, 104, str(_value))
+        Wait(250)
+        NumGumpButton(0, 229)
+        Wait(250)
+
+    def Chiv(self, _value):
+        NumGumpTextEntry(0, 105, str(_value))
+        Wait(250)
+        NumGumpButton(0, 230)
+        Wait(250)
+
+    def Ninjitsu(self, _value):
+        NumGumpTextEntry(0, 106, str(_value))
+        Wait(250)
+        NumGumpButton(0, 231)
+        Wait(250)
+
+    def Throwing(self, _value):
+        NumGumpTextEntry(0, 107, str(_value))
+        Wait(250)
+        NumGumpButton(0, 232)
+        Wait(250)
+
+    def Lumberjacking(self, _value):
+        NumGumpTextEntry(0, 108, str(_value))
+        Wait(250)
+        NumGumpButton(0, 233)
+        Wait(250)
+
+    def Snooping(self, _value):
+        NumGumpTextEntry(0, 109, str(_value))
+        Wait(250)
+        NumGumpButton(0, 234)
+        Wait(250)
+
+    def Mining(self, _value):
+        NumGumpTextEntry(0, 110, str(_value))
+        Wait(250)
+        NumGumpButton(0, 235)
+        Wait(250)
+
+    def ManaRegen(self, _value):
+        NumGumpTextEntry(0, 77, str(_value))
+        Wait(250)
+        NumGumpButton(0, 197)
+        Wait(250)
+
 
 
 
