@@ -32,14 +32,14 @@ async def RunSearch(_message):
             await _message.channel.send(f"{_message.author.mention} search either timed out or no items found.")
             return
 
-        if _vs.Results() == 0:
+        _results = _vs.Results()
+        if _results == 0:
             await _message.channel.send(f"{_message.author.mention} no results found")
             return
         else:
-            _response = f"{_message.author.mention} Results Found: {len(_vs.Results())}" \
-                        f" currently only supports up to 5"
+            _response = f"{_message.author.mention} Results Found: {len(_results)}"
             await _message.channel.send(_response)
-            for _result in _vs.Results():
+            for _result in _results:
                 _color = 'ff7324'
                 if _result[0] == 'ring' or _result[0] == 'bracelet':
                     _color = '00ffff'

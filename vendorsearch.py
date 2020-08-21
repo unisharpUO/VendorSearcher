@@ -31,7 +31,7 @@ class VendorSearch:
         Wait(250)
         _searching = True
         _success = False
-        _timeout = time.time() + 60  # 1 minutes from now
+        _timeout = time.time() + 60  # 1 minute from now
         while _searching:
             for _i in range(0, GetGumpsCount()):
                 if GetGumpID(_i) == 999113:
@@ -52,18 +52,50 @@ class VendorSearch:
         _results = ""
         _result = []
         _response = []
-        for _i in range(0, GetGumpsCount()):
-            if GetGumpID(_i) == 999113:
-                _resultsGumpIndex = _i
-        _results = GetGumpInfo(_resultsGumpIndex)
-        _results = _results['Tooltips']
-        for _param in _results:
-            if _param['ClilocID'] in range(1151488, 1151496):
-                continue
-            _result.append(_param['Arguments'])
-            if _param['ClilocID'] == 1060639:
-                _response.append(_result)
-                _result = []
+        _paging = True
+        _button = 0
+        while _paging:
+            _paging = False
+            _gumpSearching = True
+            while _gumpSearching:
+                for _i in range(0, GetGumpsCount()):
+                    if GetGumpID(_i) == 999113:
+                        _resultsGumpIndex = _i
+                        _gumpSearching = False
+                        break
+                    else:
+                        Wait(250)
+                Wait(250)
+            _results = GetGumpInfo(_resultsGumpIndex)
+            _tooltips = _results['Tooltips']
+            _htmltoks = _results['XmfHTMLTok']
+            _gumpButtons = _results['GumpButtons']
+            for _gumpButton in _gumpButtons:
+                if _gumpButton['ElemNum'] == 6:
+                    _button = _gumpButton['ReturnValue']
+            for _htmltok in _htmltoks:
+                if _htmltok['ClilocID'] == 1114514:
+                    _paging = True
+                    if "Higher" in _htmltok['Arguments']:
+                        _paging = False
+            for _param in _tooltips:
+                if _param['ClilocID'] in range(1151488, 1151496):
+                    continue
+                _result.append(_param['Arguments'])
+                if _param['ClilocID'] == 1060639:
+                    _response.append(_result)
+                    _result = []
+            if _paging:
+                NumGumpButton(_resultsGumpIndex, _button)
+                _gumpSearching = True
+                while _gumpSearching:
+                    for _i in range(0, GetGumpsCount()):
+                        if GetGumpID(_i) == 999113:
+                            _gumpSearching = False
+                            break
+                        else:
+                            Wait(250)
+                    Wait(250)
         return _response
 
     def DiscordSearch(self, _params):
