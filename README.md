@@ -8,3 +8,4 @@ Create a .env file and put "DISCORD_TOKEN={TOKEN}" in here without the {}'s cont
 How to add a bot to your discord: (https://discordpy.readthedocs.io/en/latest/discord.html)
 
 ![Image of VendorSearcher](https://i.imgur.com/DGMb5wY.png)
+(does more than 5 now since pagination added)
