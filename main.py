@@ -1,14 +1,14 @@
 import asyncio
-import os
 import discord
 from discord import Embed, Colour
-from dotenv import load_dotenv
 from vendorsearch import *
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = 'DISCORD TOKEN HERE'
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
 
 Searches = asyncio.Queue()
 RunNextSearch = asyncio.Event()
@@ -106,6 +106,6 @@ async def on_message(message):
             _search = await RunSearch(message)
             await Searches.put(_search)
 
-client.loop.create_task(VendorSearchTask())
+#  client.loop.create_task(VendorSearchTask())
 
 client.run(TOKEN)

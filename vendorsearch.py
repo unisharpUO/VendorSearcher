@@ -11,19 +11,23 @@ class VendorSearch:
         RequestContextMenu(Self())
         Wait(250)
         SetContextMenuHook(0, 0)
-        _test = GetContextMenu().splitlines()
-        _i = 0
-        for _string in _test:
-            if "Vendor Search" not in _string:
-                _i += 1
-            else:
-                SetContextMenuHook(Self(), _i)
-                RequestContextMenu(Self())
-        ClearContextMenu()
+        #_test = GetContextMenu().splitlines()
+        #_i = 0
+        #for _string in _test:
+            #if "Vendor Search" not in _string:
+                #_i += 1
+            #else:
+                #SetContextMenuHook(Self(), _i)
+                #RequestContextMenu(Self())
+        SetContextMenuHook(Self(), 1)
+        #RequestContextMenu(Self())
+        #ClearContextMenu()
+        Wait(250)
         SetContextMenuHook(0, 0)
         Wait(250)
         NumGumpButton(0, 2)
         Wait(250)
+        print('VS Initialized')
 
     def Search(self):
         Wait(250)
@@ -81,7 +85,7 @@ class VendorSearch:
             for _param in _tooltips:
                 if _param['ClilocID'] in range(1151488, 1151496):
                     continue
-                _result.append(_param['Arguments'])
+                _result.append(_param['ClilocText'])
                 if _param['ClilocID'] == 1060639:
                     _response.append(_result)
                     _result = []
