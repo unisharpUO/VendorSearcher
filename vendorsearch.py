@@ -27,7 +27,6 @@ class VendorSearch:
         Wait(250)
         NumGumpButton(0, 2)
         Wait(250)
-        print('VS Initialized')
 
     def Search(self):
         Wait(250)
@@ -49,6 +48,9 @@ class VendorSearch:
                 elif GetGumpID(_i) == 999115:
                     print("waiting")
                     Wait(250)
+                elif GetGumpID(_i) == 999112:
+                    _searching = False
+                    _success = False
         return _success
 
     def Results(self):
@@ -100,6 +102,9 @@ class VendorSearch:
                         else:
                             Wait(250)
                     Wait(250)
+            if GetGumpInfo(1)['XmfHTMLTok'][-1][
+                'ClilocText'] == '<DIV ALIGN=RIGHT>Search for Higher Priced Items</DIV>':
+                return _response
         return _response
 
     def DiscordSearch(self, _params):
